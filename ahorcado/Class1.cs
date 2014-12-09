@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ahorcado
 {
     public class ahorcado
@@ -33,8 +34,7 @@ namespace ahorcado
 
 
         }
-
-        private static void juego()
+         private static void juego()
         {
            
             string[] pal = new string[20];
@@ -42,21 +42,21 @@ namespace ahorcado
             pal[2] = "ahorcado";
             pal[3] = " habitacion";
             pal[4] = "ideologia";
-            int i = 0, na = 0, t1 = 0;
-            string pal2 = "", pal3 = "";
+            int i = 0, numAle = 0, extension = 0;
+            string palOculta = "", palAdivinando = "";
             Random objeto = new Random();
-            na = objeto.Next(1, 4);
-            pal2 = pal[na];
-            t1 = pal2.Length;
+            numAle = objeto.Next(1, 4);
+            palOculta = pal[numAle];
+            extension = palOculta.Length;
             Console.WriteLine("");
-            Console.WriteLine("  Pista : tiene " + t1 + " letras");
-            for (i = 0; i <= t1 - 1; i++)
+            Console.WriteLine("  Pista : tiene " + extension + " letras");
+            for (i = 0; i <= extension - 1; i++)
             {
 
-                pal3 = pal3 + "*";
+                palAdivinando = palAdivinando + "*";
 
             }
-            Console.Write("\n" + pal3);
+            Console.Write("\n" + palAdivinando);
             int intento = 0;
             do
             {
@@ -65,36 +65,45 @@ namespace ahorcado
                 Boolean exito = false;
                 Console.Write("\n Escriba una tecla \n");
                 lp = Console.ReadLine()[0];
-                for (i = 0; i <= t1 - 1; i++)
+                for (i = 0; i <= extension - 1; i++)
                 {
-                    le = pal2.Substring(i, 1)[0];
+                    le = palOculta.Substring(i, 1)[0];
                     if (le.Equals(lp))
                     {
-                        StringBuilder sbpal2 = new StringBuilder(pal3);
+                        StringBuilder sbpal2 = new StringBuilder(palAdivinando);
                         sbpal2[i] = lp;
-                        pal3 = sbpal2.ToString();
+                        palAdivinando = sbpal2.ToString();
 
                         exito = true;
                     }
                 }
                 if (exito)
                 {
-                    Console.Write("\nBien," + pal3);
+                    Console.WriteLine("\nBien," + palAdivinando);
+                    if (palOculta.Equals(palAdivinando))
+                    {
+                        Console.WriteLine(" Has acertado la palabra {0}", palAdivinando);
+                        break;
+                    }
 
                 }
                 else
                 {
                     intento++;
 
-                    Console.Write("\n Esa letra  es  incorrecta, lleva {0} intentos", intento);
+                    Console.WriteLine("\n Esa letra  es  incorrecta, lleva {0} intentos", intento);
                 }
                 if (intento == 6)
                 {
-                    Console.Write("perdiste");
+                    Console.Write("perdiste  :(  la palabra era {0}",palOculta);
                 }
             }
             while (intento <= 5);
         }
+
+       
+
+       
 
         public void MostrarLetrero()
         {
@@ -112,7 +121,7 @@ namespace ahorcado
                 Console.WindowHeight = Console.LargestWindowHeight;
                 //   cambia el color del fondo y la letra.
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 
             }
 
